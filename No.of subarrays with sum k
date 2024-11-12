@@ -1,0 +1,72 @@
+Time Complexity  : O(N^2)
+Space Complexity : O(1)
+
+
+#include<iostream>
+using namespace std;
+
+int main()
+{
+    int n,count=0,sum,k;
+    cout<<"Enter size of array ";
+    cin>>n;
+    int arr[n];
+    cout<<"Enter elements to array ";
+    for(int i=0;i<n;i++)
+    {
+        cin>>arr[i];
+    }
+    cout<<"Enter k value ";
+    cin>>k;
+    for(int i=0;i<n;i++)
+    {
+        sum=0;
+        for(int j=i;j<n;j++)
+        {
+            sum+=arr[j];
+            if(sum==k)
+            count++;
+        }
+    }
+    cout<<"No.of Subarrays with sum K = " <<count;
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+Time Complexity : O(N*log N)
+Space Complexity : O(N)
+
+#include<iostream>
+using namespace std;
+#include<vector>
+#include<map>
+
+int no_of_subarrays_with_sum_k(vector<int>&arr,int k)
+{
+    map<int,int>mpp;
+    mpp[0]=1;
+    int prefix_sum=0,count=0;
+    for(int i=0;i<arr.size();i++)
+    {
+        prefix_sum+=arr[i];
+        int remain=prefix_sum-k;
+        count+=mpp[remain];
+        mpp[prefix_sum]+=1;
+    }
+    return count;
+}
+
+int main()
+{
+    int n,count=0,sum,k;
+    cout<<"Enter size of array ";
+    cin>>n;
+    vector<int>arr(n);
+    cout<<"Enter elements to array ";
+    for(int i=0;i<n;i++)
+    {
+        cin>>arr[i];
+    }
+    cout<<"Enter k value ";
+    cin>>k;
+    cout<<"No.of Subarrays with sum K = " <<no_of_subarrays_with_sum_k(arr,k);
+}
